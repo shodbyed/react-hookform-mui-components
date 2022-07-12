@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import MyForm from './MyForm';
+import { useForm, FormProvider } from 'react-hook-form';
+import { defaultValueList } from './lists';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const form = useForm({ defaultValues: defaultValueList });
+    const onSubmit = data => console.log(data);
+    const onError = error => console.log(error);
+
+    return (
+        <FormProvider {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit, onError)}>
+                <MyForm />
+            </form>
+        </FormProvider>
+    );
 }
 
 export default App;
